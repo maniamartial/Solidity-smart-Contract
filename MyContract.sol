@@ -124,7 +124,6 @@ uint256 openinTime=1659371761;
       string _lastName;
   }
 
-
   constructor(){
       owner=msg.sender;
   }
@@ -194,4 +193,31 @@ function incrementCount() internal {
     peopleCount+=1;
 }
 }
-*/
+*///Transfer of token from one account to another
+// SPDX-License-Identifier: UNLICENSED
+
+
+contract myContract{
+mapping(address=>uint256) public balances;
+address payable wallet;
+event Purchase(
+    address indexed _buyer,
+    uint256 _amount
+);
+
+constructor(address payable _wallet) public{
+wallet=_wallet;
+}
+function() external payable{
+    buyToken();
+}
+
+
+    function buyToken() public payable{
+        //buy token
+balances[msg.sender]+=1;
+        //send ether to wallet
+        wallet.transfer(msg.value);
+        emit Purchase(msg.sender,1);
+    }
+}
