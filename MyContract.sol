@@ -294,3 +294,39 @@ function mint() public{
     owners.push(msg.sender);
 }
 }
+
+//
+// SPDX-License-Identifier: UNLICENSED
+//IUsing math and libraries....in solidity
+pragma solidity ^0.5.1;
+
+library Math{
+    function divide(uint256 a, uint256 b) internal pure returns (uint256){
+        require(b>0);
+        uint256 c=a/b;
+        return c;
+    }
+}
+
+contract myContract{
+    uint256 public value;
+
+    function calculate(uint _value1, uint _value2) public{
+    value=Math.divide(_value1, _value2);
+    }
+}
+
+//Exmple 2 on libraries..importing external libraries
+// SPDX-License-Identifier: UNLICENSED
+//IUsing math and libraries....in solidity
+pragma solidity ^0.8.0;
+import "./safeMath.sol";
+
+contract myContract{
+    using SafeMath for uint256;
+    uint256 public value;
+
+    function calculate(uint _value1, uint _value2) public{
+    value=_value1.div(_value2);
+    }
+}
