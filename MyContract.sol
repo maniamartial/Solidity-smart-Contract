@@ -74,6 +74,10 @@ contract MyContract{
 
 /*
 
+// SPDX-License-Identifier: UNLICENSED
+
+pragma solidity ^0.8.7;
+
 contract MyContract{
     uint256 public peopleCount=0;
 //  Person []public people;
@@ -85,9 +89,109 @@ contract MyContract{
   }
 
   function addPerson(string memory _firstName, string memory _lastName) public{
-         peopleCount+=1;
+         incrementCount();
      //people.push(Person(_firstName, _lastName));
 people[peopleCount]=Person(peopleCount, _firstName, _lastName);
+}
+
+function incrementCount() internal {
+    peopleCount+=1;
+}
+}
+
+*/
+
+// SPDX-License-Identifier: UNLICENSED
+//Using modifiers
+example 1
+
+pragma solidity ^0.8.7;
+
+contract MyContract{
+    uint256 public peopleCount=0;
+    address owner;
+uint256 openinTime=1659371761;
+    modifier onlyOwner(){
+        require(msg.sender==owner);
+        _;
+    }
+
+//  Person []public people;
+ mapping(uint=>Person) public people;
+  struct Person{
+      uint id;
+      string _firstName;
+      string _lastName;
+  }
+
+
+  constructor(){
+      owner=msg.sender;
+  }
+
+  function addPerson(
+      string memory _firstName, 
+  string memory _lastName) 
+  
+
+  public  onlyOwner{
+         incrementCount();
+     //people.push(Person(_firstName, _lastName));
+people[peopleCount]=Person(
+    peopleCount, 
+    _firstName, 
+    _lastName);
+}
+
+function incrementCount() internal {
+    peopleCount+=1;
+}
+}
+/*
+Example 2, restrictiong using timer
+
+// SPDX-License-Identifier: UNLICENSED
+//Using modifiers
+
+pragma solidity ^0.8.7;
+
+contract MyContract{
+    uint256 public peopleCount=0;
+    
+uint256 openinTime=1659372100;
+
+    modifier onlyOpenAt(){
+        require(block.timestamp >= openinTime);
+        _;
+    }
+
+//  Person []public people;
+ mapping(uint=>Person) public people;
+  struct Person{
+      uint id;
+      string _firstName;
+      string _lastName;
+  }
+
+
+
+
+  function addPerson(
+      string memory _firstName, 
+  string memory _lastName) 
+  
+
+  public  onlyOpenAt{
+         incrementCount();
+     //people.push(Person(_firstName, _lastName));
+people[peopleCount]=Person(
+    peopleCount, 
+    _firstName, 
+    _lastName);
+}
+
+function incrementCount() internal {
+    peopleCount+=1;
 }
 }
 */
